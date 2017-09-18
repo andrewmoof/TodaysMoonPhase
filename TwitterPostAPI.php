@@ -1,7 +1,7 @@
 <?php
 
 /*
- * SmallSimple twitter post lib
+ * SmallSimple twitter post lib. Tweet - without 3rd party libraries.
  * 
  * Live URL: https://twitter.com/TodaysMoonPhase
  * Description: This script calculate moon phase
