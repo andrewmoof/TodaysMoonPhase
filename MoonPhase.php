@@ -7,44 +7,56 @@
  * 
  * Live URL: https://twitter.com/TodaysMoonPhase
  * Description: This script calculate moon phase
- * Version: 0.2
+ * Version: 0.5
  * Author: andrewmoof
  * Author URI: http://moofmedia.com/
  * 
  */
+
 class MoonPhase {
 
-    public $moon_phase = NULL;
-    public $moon_age = NULL;
-    private $first_moon_year = 2014;
+    private $moon_phase = NULL;
+    private $moon_age = NULL;
+    private const FIRST_MOON_YEAR = 2014;
 
     public function __construct() {
         $curr_time = time();
 
-        $moon_year = $this->get_moon_year($curr_time);
+        $moon_year = $this->calc_moon_year($curr_time);
 
-        $this->moon_age = $this->get_moon_age($curr_time, $moon_year);
-        $this->moon_phase = $this->get_moon_phase($this->moon_age);
+        $this->moon_age = $this->calc_moon_age($curr_time, $moon_year);
+        $this->moon_phase = $this->calc_moon_phase($this->moon_age);
+    }
+    
+    public function get_moon_phase() {
+        return $this->moon_phase;
+    }
+    
+    public function get_moon_age() {
+        return $this->moon_age;
+    }
+    
+    public function get_moon_state() {
+        return ($this->moon_phase + array('age'=>$this->moon_age));
     }
 
-    private function get_moon_year($time) {
+    private function calc_moon_year($time) {
 
         $earth_year = date('Y', $time);
         $moon_year = 1;
-        $i = $this->first_moon_year;
+        $i = self::FIRST_MOON_YEAR;
 
         while ($i != $earth_year) {
             $i++;
             $moon_year++;
 
-            if ($moon_year > 19)
-                $moon_year = 0;
+            if ($moon_year > 19) $moon_year = 0;
         }
 
         return $moon_year;
     }
 
-    private function get_moon_age($time, $moon_year) {
+    private function calc_moon_age($time, $moon_year) {
 
         $moon_age = ($moon_year * 11) - 14 + (int) date('j', $time) + (int) date('n', $time);
 
@@ -55,7 +67,7 @@ class MoonPhase {
         return $moon_age;
     }
 
-    private function get_moon_phase($moon_age) {
+    private function calc_moon_phase($moon_age) {
 
         $moon_phase = array();
 
@@ -90,10 +102,8 @@ class MoonPhase {
                 $moon_phase['icon'] = html_entity_decode('&#127767;', 0, 'UTF-8');
             }
         }
-
         return $moon_phase;
     }
-
 }
 
 ?>

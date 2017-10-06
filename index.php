@@ -3,7 +3,7 @@
 /*
  * Live URL: https://twitter.com/TodaysMoonPhase
  * Description: This script calculate moon phase and tweet it
- * Version: 0.2
+ * Version: 0.4
  * Author: andrewmoof
  * Author URI: http://moofmedia.com/
  * 
@@ -20,12 +20,12 @@ require_once './MoonPhase.php';
 require_once './TwitterPostAPI.php';
 
 $TodayMoonPhase = new MoonPhase();
+$moon_state = $TodayMoonPhase->get_moon_state();
 
-$moon_age = $TodayMoonPhase->moon_age;
-$moon_phase = $TodayMoonPhase->moon_phase['desc'];
-$moon_icon = $TodayMoonPhase->moon_phase['icon'];
+$message = 'Moon\'s Age: ' . $moon_state['age'] . ' (' . $moon_state['desc'] . '). ' .$moon_state['icon'] . "\n" .
+           'Today: ' . date('d F Y, l. ') .
+           "\n" . '#moon #moonage';
 
-$message = 'Moon\'s Age: ' . $moon_age . ' (' . $moon_phase . '). ' . $moon_icon . "\n" . 'Today: ' . date('d F Y, l. ') . "\n#moon #moonage";
 
 $twitter = new TwitterPostAPI($twitter_settings);
 $tweet = json_decode($twitter->post_tweet($message));
