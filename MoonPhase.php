@@ -17,9 +17,7 @@ class MoonPhase {
     private $moon_phase = NULL;
     private $moon_age = NULL;
 
-    private
-
-    const FIRST_MOON_YEAR = 2014;
+    private const FIRST_MOON_YEAR = 2014;
 
     public function __construct() {
         $curr_time = time();
