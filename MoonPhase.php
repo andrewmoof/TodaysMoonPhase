@@ -7,7 +7,7 @@
  * 
  * Live URL: https://twitter.com/TodaysMoonPhase
  * Description: This script calculate moon phase
- * Version: 0.5
+ * Version: 0.6
  * Author: andrewmoof
  * Author URI: http://moofmedia.com/
  * 
@@ -75,33 +75,40 @@ class MoonPhase {
             $moon_phase['phase'] = 0;
             $moon_phase['desc'] = 'New Moon';
             $moon_phase['icon'] = html_entity_decode('&#127761;', 0, 'UTF-8');
-        } elseif ($moon_age == 15) {
+        } elseif ($moon_age < 7) {
+            $moon_phase['phase'] = 1;
+            $moon_phase['desc'] = 'Waxing crescent';
+            $moon_phase['icon'] = html_entity_decode('&#127762;', 0, 'UTF-8'); 
+        } elseif ($moon_age == 7) { 
             $moon_phase['phase'] = 2;
+            $moon_phase['desc'] = 'First Quarter';
+            $moon_phase['icon'] = html_entity_decode('&#127763;', 0, 'UTF-8'); 
+        } elseif (($moon_age > 7)&&($moon_age < 15)) {
+            $moon_phase['phase'] = 3;
+            $moon_phase['desc'] = 'Waxing gibbous';
+            $moon_phase['icon'] = html_entity_decode('&#127764;', 0, 'UTF-8');
+        } elseif ($moon_age == 15) {
+            $moon_phase['phase'] = 4;
             $moon_phase['desc'] = 'Full Moon';
             $moon_phase['icon'] = html_entity_decode('&#127765;', 0, 'UTF-8');
-        } elseif ($moon_age < 15) {
-            $moon_phase['phase'] = 1;
-            $moon_phase['desc'] = 'First Quarter';
-
-            if ($moon_age < 5) {
-                $moon_phase['icon'] = html_entity_decode('&#127762;', 0, 'UTF-8');
-            } elseif ($moon_age > 10) {
-                $moon_phase['icon'] = html_entity_decode('&#127764;', 0, 'UTF-8');
-            } else {
-                $moon_phase['icon'] = html_entity_decode('&#127763;', 0, 'UTF-8');
-            }
-        } elseif ($moon_age > 15) {
-            $moon_phase['phase'] = 3;
-            $moon_phase['desc'] = 'Third Quarter';
-
-            if ($moon_age > 25) {
-                $moon_phase['icon'] = html_entity_decode('&#127768;', 0, 'UTF-8');
-            } elseif ($moon_age < 20) {
-                $moon_phase['icon'] = html_entity_decode('&#127766;', 0, 'UTF-8');
-            } else {
-                $moon_phase['icon'] = html_entity_decode('&#127767;', 0, 'UTF-8');
-            }
+        } elseif (($moon_age > 15)&&($moon_age < 22)) {
+            $moon_phase['phase'] = 5;
+            $moon_phase['desc'] = 'Waning gibbous';
+            $moon_phase['icon'] = html_entity_decode('&#127766;', 0, 'UTF-8');           
+        } elseif ($moon_age == 22) {
+            $moon_phase['phase'] = 6;
+            $moon_phase['desc'] = 'Third quarter';
+            $moon_phase['icon'] = html_entity_decode('&#127767;', 0, 'UTF-8');
+        } elseif ($moon_age > 22) {
+            $moon_phase['phase'] = 7;
+            $moon_phase['desc'] = 'Waning crescent';
+            $moon_phase['icon'] = html_entity_decode('&#127768;', 0, 'UTF-8'); 
+        } else {
+            $moon_phase['phase'] = -1;
+            $moon_phase['desc'] = 'There\'s Something Wrong with the Moon';
+            $moon_phase['icon'] = html_entity_decode('&#128640;', 0, 'UTF-8');         
         }
+
         return $moon_phase;
     }
 }
