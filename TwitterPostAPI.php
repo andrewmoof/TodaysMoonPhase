@@ -12,9 +12,8 @@
  */
 
 class TwitterPostAPI {
-    private
 
-    const POST_URL = 'https://api.twitter.com/1.1/statuses/update.json';
+    private const POST_URL = 'https://api.twitter.com/1.1/statuses/update.json';
 
     private $twitter_setting = array();
     private $ctime = 0;
